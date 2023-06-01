@@ -8,7 +8,7 @@ const {
   checkDate,
   checkShoesQuantity,
 } = require('../middleware');
-// TODO: Add delete and update booking, add search for bookings by a date range
+
 router.get('/getAll', bookingController.getAllBookings);
 
 router.get('/getById/:id', bookingController.getBookingById);
