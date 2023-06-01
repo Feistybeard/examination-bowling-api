@@ -13,6 +13,8 @@ router.get('/getAll', bookingController.getAllBookings);
 
 router.get('/getById/:id', bookingController.getBookingById);
 
+router.get('/getByDates', bookingController.getBookingsByDates);
+
 router.post(
   '/create',
   checkAllFields,
@@ -22,5 +24,17 @@ router.post(
   checkWhichAlleysBooked,
   bookingController.createBooking
 );
+
+router.put(
+  '/update/:id',
+  checkAllFields,
+  checkTime,
+  checkDate,
+  checkShoesQuantity,
+  checkWhichAlleysBooked,
+  bookingController.updateBooking
+);
+
+router.delete('/delete/:id', bookingController.deleteBooking);
 
 module.exports = router;

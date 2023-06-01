@@ -31,6 +31,12 @@ async function getBookingById(id) {
   return await Bookings.findOne({ bookingId: id });
 }
 
+async function getBookingsByDates(startDate, endDate) {
+  return await Bookings.find({
+    date: { $gte: startDate, $lte: endDate },
+  });
+}
+
 async function createBooking(booking) {
   return await Bookings.create({
     bookingId: booking.bookingId,
@@ -44,9 +50,31 @@ async function createBooking(booking) {
   });
 }
 
+async function updateBooking(id, booking) {
+  return await Bookings.findOneAndUpdate(
+    { bookingId: id },
+    {
+      date: booking.date,
+      time: booking.time,
+      numberOfPeople: booking.numberOfPeople,
+      shoeSizes: booking.shoeSizes,
+      alleysToBook: booking.alleysToBook,
+      email: booking.email,
+      totalPrice: booking.totalPrice,
+    }
+  );
+}
+
+async function deleteBooking(id) {
+  return await Bookings.findOneAndDelete({ bookingId: id });
+}
+
 module.exports = {
   checkIfBookingExists,
   getAllBookings,
   getBookingById,
+  getBookingsByDates,
   createBooking,
+  updateBooking,
+  deleteBooking,
 };
