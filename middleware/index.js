@@ -34,17 +34,17 @@ function checkTime(req, res, next) {
 
 function checkDate(req, res, next) {
   const { date } = req.body;
+  const dateValid = utils.isDateValid(date);
 
-  const today = utils.todaysDate();
-  const bookingDate = utils.formatDate(date);
-  const isDateValid = utils.isDateValid(bookingDate);
-
-  if (!isDateValid) {
+  if (!dateValid) {
     return res.status(400).json({
       success: false,
       message: 'Please enter a valid date',
     });
   }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const bookingDate = new Date(date).toISOString().slice(0, 10);
 
   if (bookingDate < today) {
     return res.status(400).json({
